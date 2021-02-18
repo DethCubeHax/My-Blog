@@ -103,10 +103,17 @@ def passwordUpdate():
         db.execute("UPDATE users SET password=:password WHERE email=:email", password=generate_password_hash(newPassword), email=email)
         return render_template("account.html", msg = "Credentials changed successfully!", data=tmp[0])
 
-@app.route("/readingList")
+@app.route("/readingList", methods=['POST'])
 @login_required
 def readingList():
-    tmp = db.execute("SELECT * FROM readingList WHERE id=:id", id=session["user_id"])
+    print('Request method: ' + request.method)
+    if request.method == "POST":
+        contentID = request.form.get("id")
+        print('ID: ' + contentID)
+        
+
+    else:
+        tmp = db.execute("SELECT * FROM readingList WHERE id=:id", id=session["user_id"])
 
 @app.route("/about")
 def about():
