@@ -1,0 +1,29 @@
+{% extends "layouts/mainLayout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+<div style="padding-top: 95px">
+    <div class="border_left border_right border_top border_bottom bgtext" style="min-height: 80%; border-radius: 3px; text-align: left;">
+        <div style="padding-left:5px; padding-right:5px">
+            <div style="padding-top:10px; color:white" class="border_bottom font-thumbTitle font-medium-small">
+                {% block pageTitle %}{% endblock %}
+                <div style="text-align: right; transform: translateY(-15px)" class="font-small-medium">
+                
+                </div>
+                
+            </div>
+            <div style="padding-bottom: 20px;" class="font-text">
+                Published on {% block date %}{% endblock %}
+                <div><button>Read later</button></div>
+                {% block content %}{% endblock %}
+            </div>
+            <div style="padding-bottom: 20px;" class="font-text border-top">
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

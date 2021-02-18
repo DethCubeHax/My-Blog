@@ -1,0 +1,39 @@
+{% extends "layouts/mainLayout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+<div style="padding-top: 95px"></div>
+<div class="border_left border_right border_top border_bottom bgtext" style="min-height: 80%; border-radius: 3px; text-align: left;">
+    <div style="padding-top: 5px; padding-left:5px; padding-right:5px; padding-bottom:5px; text-align:right; z-index: 10;">
+        <input type="text" placeholder="Looking for something?" class="SearchBar">
+        <button type="submit" name="Search" style="height: 25px; ">Search</button>
+        <div style="padding-top:5px" class="border_bottom"></div>
+
+    </div>
+
+    <div style="padding-left: 50px; padding-right: 30px; padding-top:10px">
+        <div class="grid-container">
+        {% for rows in data %}
+            <form method="POST" action="/blogpage" style="text-decoration: none;">
+                <input type="hidden" id="id" name="id" value="{{ rows['id'] }}" />
+                    <button class="form-submit-button " type="submit">
+                        <div class="card" style="color:white; background-color: #292929;" type="submit">
+                            <img src="{{ rows['path'] + 'images/thumbnail.jpeg'}}" alt="Avatar" style="max-width:200px; max-height: 300px">
+                            <div class="card-container">
+                                <h2 class="font-thumbTitle font-small-medium"><b>{{ rows["name"] }}</b></h2>
+                                <p style="padding-bottom: 3px; transform: translateY(-10px); color:lightgray">
+                                    {{ rows["category"] }}
+                                </p>
+                            </div>
+                        </div>
+                    </button>
+            </form>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

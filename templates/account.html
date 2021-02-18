@@ -1,0 +1,80 @@
+{% extends "layouts/mainLayout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+<script>
+    function formVerify(){
+        var email = document.forms["Registration"].email.value;
+        var oldPassword = document.forms["Registration"].oldPassword.value;
+        var confirm = document.forms["Registration"].confirm.value;
+        var newPassword = document.forms["Registration"].newPassword.value;
+
+    
+        if (email == ""){
+            alert("Please input an email");
+            return false;
+        }
+        else if (newPassword == ""){
+            alert("Please enter a password");
+            return false;
+        }
+        else if (confirm == ""){
+            alert("Please confirm your password");
+            return false;
+        }
+        else if (confirm != newPassword){
+            alert("Password and password confirmation do not match")
+            return false;
+        }
+        return true;
+    }
+
+
+</script>
+
+<div style="padding-top: 95px">
+    <div class="border_left border_right border_top border_bottom bgtext" style="min-height: 80%; border-radius: 3px; text-align: left;">
+        <div style="padding-left:5px; padding-right:5px">
+            <div style="padding-top:10px; padding-left:5px; color:#ffffff" class="border_bottom font-regular font-medium-small">
+                My Account
+            </div>
+            <div style="padding-bottom: 20px; padding-left:5px; color:white" class="font-text border-bottom">
+                <br>Name: {{data['username']}}</br>
+                <br>Email: {{data['email']}}</br>
+                <br>Password Hash (required for resetting the password if forgotten): {{data["password"]}}</br>
+            </div>
+
+            <div style="padding-bottom: 20px; padding-top:2px; padding-left: 5px; color:white" class="font-regular border_top font-medium-small">Reset Password</div>
+            <form name="Registration" id="Registration" action="/passwordUpdate" onsubmit="return formVerify()" method="POST" required style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                <div style="padding-top:px"></div>
+    
+                <div class="form-group font-regular">
+                    <input autocomplete="off" autofocus class="form-control" name="email" id="email" placeholder="Email" type="text">
+                </div>
+    
+                <div style="padding-top:10px"></div>
+    
+                <div class="form-group">
+                    <input class="form-control" name="oldPassword" id="oldPassword" placeholder="Old Password" type="password">
+                </div>
+                <div style="padding-top:10px"></div>
+                <div class="form-group">
+                    <input class="form-control" name="newPassword" id="newPassword" placeholder="New Password" type="password">
+                </div>
+                <div style="padding-top:10px"></div>
+                <div class="form-group">
+                    <input class="form-control" name="confirm" id="confirm" placeholder="Confirm New Password" type="password">
+                </div>
+                <div style="padding-top:20px; padding-left:10px"><button type="submit">Change Password</button></div>
+                
+                <div style="padding-top:10px"></div>
+                {% if msg %}
+                    <div style="color:white">{{msg}}</div>
+                {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

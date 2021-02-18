@@ -1,0 +1,160 @@
+{% extends "layouts/mainLayout.html" %}
+
+{% block title %}
+ - Register
+{% endblock %}
+
+{% block body %}
+<script>
+    function formVerify(){
+        var username = document.forms["Registration"].username.value;
+        var password = document.forms["Registration"].password.value;
+        var confirm = document.forms["Registration"].confirm.value;
+        var email = document.forms["Registration"].email.value;
+
+        if (username == ""){
+            alert("Please input a username");
+            return false;
+        }
+        else if (email == ""){
+            alert("Please input an email");
+            return false;
+        }
+        else if (password == ""){
+            alert("Please enter a password");
+            return false;
+        }
+        else if (confirm == ""){
+            alert("Please confirm your password");
+            return false;
+        }
+        else if (confirm != password){
+            alert("Password and password confirmation do not match")
+            return false;
+        }
+        return true;
+    }
+
+    function loginVerify(){
+        var username = document.forms["Login"].username.value;
+        var password = document.forms["Login"].password.value;
+
+        if (username == ""){
+            alert("Username cannot be empty");
+            return false;
+        }
+        else if (password == ""){
+            alert("Password cannot be empty");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+{% if reg == 1 %}
+<div style="padding-top: 95px"></div>
+<div class="border_left border_right border_top border_bottom bgtext" style="min-height: 370px; border-radius: 3px; text-align: left;">
+    <div style="padding-top: 5px; padding-left:5px; padding-right:5px; padding-bottom:15px; color:white; font-size: 30pt; text-align:center; z-index: 10;" class="border_bottom">
+        Register
+    </div>
+    <div style="padding-top: 5px; text-align: center;">
+        <form name="Registration" id="Registration" action="/register" onsubmit="return formVerify()" method="POST" required style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            <div style="padding-top:30px"></div>
+            <div class="form-group font-regular">
+                <input autocomplete="off" autofocus class="form-control" id="username" name="username" placeholder="Username" type="text" >
+            </div>
+            <div style="padding-top:10px"></div>
+
+            <div class="form-group font-regular">
+                <input autocomplete="off" autofocus class="form-control" name="email" id="email" placeholder="Email" type="text">
+            </div>
+
+            <div style="padding-top:10px"></div>
+
+            <div class="form-group">
+                <input class="form-control" name="password" id="password" placeholder="Password" type="password">
+            </div>
+            <div style="padding-top:10px"></div>
+            <div class="form-group">
+                <input class="form-control" name="confirm" id="confirm" placeholder="Confirm Password" type="password">
+            </div>
+            <div style="padding-top:20px"></div>
+            <button type="submit">Register</button>
+            <div style="padding-top:10px"></div>
+            <p style="color:white">
+                Already have an account? <a href="/login">Login</a> instead.
+            </p>
+            {% if msg %}
+            <p style="color:white">
+                {{msg}}
+            </p>
+
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% elif reg == 2 %}
+<div style="padding-top: 95px"></div>
+<div class="border_left border_right border_top border_bottom bgtext" style="color:white;min-height: 270px; border-radius: 3px; text-align: left;">
+    <div style="padding-top: 5px; padding-left:5px; padding-right:5px; padding-bottom:5px; text-align:right; z-index: 10;">
+        <div style="font-size:30pt; text-align: center;">
+            Thank you for Registering!
+        </div>
+        <div style="padding-top:5px" class="border_bottom"></div>
+        <div style="padding-top: 25px; text-align:center" class="font-text">
+            <div>
+                You can now login with your credentials and comment on any of my posts for passing on your critique :)
+            </div>
+            
+            <div style="padding-top: 20px">
+                In case you ever forget your password in the future though, make sure you save the code below in a document or whatever means.
+            </div>
+            <div style="padding-top: 5px;">
+                <b>You will NOT be able to retrieve your account if you are unable to provide it.</b>
+            </div>
+
+            <div style="padding-top: 10px">
+                Code: {{passhash}}            
+            </div>
+
+            <div style="padding-top:20px">
+                You can access this info again any time in your accounts page (log in and hover over the user icon on the top right)
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% else %}
+<div style="padding-top: 95px"></div>
+<div class="border_left border_right border_top border_bottom bgtext" style="color:white;min-height: 270px; border-radius: 3px; text-align: center;">
+    <div style="font-size:30pt; text-align: center;">
+        Login
+    </div>
+    <div style="padding-top:5px" class="border_bottom"></div>
+    <form name="Login" id="Login" action="/login" onsubmit="return loginVerify()" method="POST" required style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        <div style="padding-top:30px"></div>
+        <div class="form-group font-regular">
+            <input autocomplete="off" autofocus class="form-control" name="email" id="email" placeholder="Email" type="text">
+        </div>
+    
+        <div style="padding-top:10px"></div>
+    
+        <div class="form-group">
+            <input class="form-control" name="password" id="password" placeholder="Password" type="password">
+        </div>
+        <div style="padding-top:20px"></div>
+        <button type="submit">Login</button>
+        <div style="padding-top:10px"></div>
+        <p style="color:white">
+            Don't have an account? <a href="/register">Register</a> instead.
+        </p>
+        {% if msg %}
+    
+        <p style="color:white; padding-top: 5px">
+            {{msg}}
+        </p>
+    
+        {% endif %}    
+</div>
+{% endif %}
+{% endblock %}
