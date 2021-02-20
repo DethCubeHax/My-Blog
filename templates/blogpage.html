@@ -4,7 +4,21 @@
 
 {% endblock %}
 
+
 {% block body %}
+<link href="static/styles.css" rel="stylesheet">
+
+<script>
+    function empty() {
+        var x = document.forms["Comments"].comment.value;
+        if (x == "") {
+            alert("Comment can't be empty");
+            return false;
+        };
+        return true
+    }
+</script>
+
 <div style="padding-top: 95px">
     <div class="border_left border_right border_top border_bottom bgtext" style="min-height: 80%; border-radius: 3px; text-align: left;">
         <div style="padding-left:5px; padding-right:5px">
@@ -25,9 +39,44 @@
                 </div>
                 {% block content %}{% endblock %}
             </div>
-            <div style="padding-bottom: 20px; color:white" class="font-text border_top font-small-medium">
+            <div style="padding-bottom: 3px; color:white" class="font-text border_bottom border_top font-small-medium">
                 COMMENTS
+                
+                {% if session.user_id %}
+                <form action="/comments" name="Comments" method="POST" onsubmit="return empty()">
+                    <input type="hidden" id="contentID" name="contentID" value="{{data['id']}}">
+                    <input style="width:90%" maxlength="250" type="text" id="comment" name="comment">
+                    <button type="submit">Post Comment</button>
+                </form>
+                {% else %}
+                <div style="text-align: right;">
+                    <a href="/login">Login</a> or <a href="/register">Register</a> to post comments.
+                </div>
+                {% endif %}
+
             </div>
+            {% for row in commentData %}
+            <div style="padding: 15px">
+                <div class="font-text commentBox" style="border: 1px solid #595959">
+                    <div class="flex-1" style="text-align: center;">                
+                        <div class="font-text" style="padding-left: 15px; padding-right:15px; padding-top:10px; padding-bottom: 10px;" class="flex-container">
+                            <img src="static/Images/user.png" style="width:100px; height:100px">
+                        </div>
+                        {{row['name']}}
+                        {% if session["user_id"] == row["userID"] %}
+                        <form action="/deleteComment" method="POST">
+                            <input name="commentID" id="commentID" type="hidden" value="{{row['id']}}">
+                            <input name="contentID" id="contentID" type="hidden" value="{{row['contentID']}}">
+                            <button action="submit">Delete Comment</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                    <div class="flex-5 border_left" style="padding-left: 15px;">
+                        {{row['comment']}}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

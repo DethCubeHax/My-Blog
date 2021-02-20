@@ -303,3 +303,13 @@ Dropdown thanks to w3schools!
   background: none;
 
 }
+
+.commentBox{
+  position:relative; 
+  padding-left: 15px; 
+  padding-right:15px; 
+  padding-top:10px; 
+  padding-bottom: 10px; 
+  color:white  !important;
+  display:flex;
+}

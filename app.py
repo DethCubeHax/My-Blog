@@ -6,6 +6,7 @@ from cs50 import SQL
 from datetime import date
 from tempfile import mkdtemp
 from glob import glob
+import time
 
 from helpers import login_required
 
@@ -77,16 +78,15 @@ def account():
 
     return render_template("account.html", passhash=passhash, data = rows[0])
 
-@app.route("/blogpage", methods=["POST", "GET"])
+@app.route("/blogpage", methods=["POST"])
 def blogpage():
     if request.method == "POST":
         identity = request.form['id']
         rows = db.execute("SELECT * FROM content WHERE id=:id", id = identity)
-        print(rows)
+        commentData = db.execute("SELECT * FROM comments")
+
         path = rows[0]["path"]
-        return render_template(path[7:] + "content.html", data=rows[0])
-    else:
-        return render_template()
+        return render_template(path[7:] + "content.html", data=rows[0], commentData=commentData)
 
 @app.route("/passwordUpdate", methods=["POST"])
 @login_required
@@ -110,14 +110,39 @@ def readingList():
     if request.method == "POST":
         contentID = request.form.get("id")
         print('ID: ' + contentID)
-        
-
     else:
         tmp = db.execute("SELECT * FROM readingList WHERE id=:id", id=session["user_id"])
 
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.route("/comments", methods=["POST"])
+def comments():
+    comment = request.form.get("comment")
+    contentID = request.form.get("contentID")
+    timeNow = time.time()
+
+    username = db.execute("SELECT * FROM users WHERE id=:id", id = session["user_id"])
+
+    db.execute("INSERT INTO comments (contentID, userID, comment, time, name) VALUES (:contentID, :userID, :comment, :time, :name)", contentID=contentID, userID=session["user_id"], comment=comment, time=timeNow, name=username[0]['username'])
+
+    rows = db.execute("SELECT * FROM content WHERE id=:id", id = contentID)
+    commentData = db.execute("SELECT * FROM comments")
+    path = rows[0]["path"]
+    return render_template(path[7:] + "content.html", data=rows[0], commentData=commentData)
+
+@app.route("/deleteComment", methods=["POST"])
+def deleteComment():
+    commentID = request.form.get("commentID")
+    contentID = request.form.get("contentID")
+    db.execute("DELETE FROM comments WHERE id=:id", id=commentID)
+
+    rows = db.execute("SELECT * FROM content WHERE id=:id", id = contentID)
+    commentData = db.execute("SELECT * FROM comments")
+    path = rows[0]["path"]
+    return render_template(path[7:] + "content.html", data=rows[0], commentData=commentData)
+
 
 def update():
     path = './static/Content/*/'
