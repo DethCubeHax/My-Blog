@@ -1,0 +1,39 @@
+{% extends "layouts/mainLayout.html" %}
+
+{% block body %}
+
+<div style="padding-top: 95px"></div>
+<div class="border_left border_right border_top border_bottom bgtext font-text font-medium" style="text-align:center !important;color:white;min-height: 80%; border-radius: 3px; text-align: left;">
+    {% if data %}
+    
+    
+    <table class="ShrNoob">
+        <tr class="ShrNoob">
+            <th class="ShrNoob">Title</th>
+            <th class="ShrNoob">Category</th>
+            <th class="ShrNoob">Action</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{row['name']}}</td>
+            <td>{{row['category']}}</td>
+            <td>
+                <form action="/blogpage" method="POST">
+                    <input type="hidden" name="id" id="id" value="{{row['id']}}">
+                    <button action="submit">Read</button>
+                </form>
+                <form action="/readingList" method="POST">
+                    <input type="hidden" name="del" id="del" value="del">
+                    <input type="hidden" name="contentID" id="contentID" value="{{row['id']}}">
+                    <button action="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <div>You haven't saved anything yet!</div>
+    {% endif %}
+</div>
+
+{% endblock %}
