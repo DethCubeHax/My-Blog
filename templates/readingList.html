@@ -1,39 +1,79 @@
 {% extends "layouts/mainLayout.html" %}
 
 {% block body %}
+<style>
+
+</style>
 
 <div style="padding-top: 95px"></div>
-<div class="border_left border_right border_top border_bottom bgtext font-text font-medium" style="text-align:center !important;color:white;min-height: 80%; border-radius: 3px; text-align: left;">
-    {% if data %}
-    
-    
-    <table class="ShrNoob">
-        <tr class="ShrNoob">
-            <th class="ShrNoob">Title</th>
-            <th class="ShrNoob">Category</th>
-            <th class="ShrNoob">Action</th>
-        </tr>
-        {% for row in data %}
-        <tr>
-            <td>{{row['name']}}</td>
-            <td>{{row['category']}}</td>
-            <td>
-                <form action="/blogpage" method="POST">
-                    <input type="hidden" name="id" id="id" value="{{row['id']}}">
-                    <button action="submit">Read</button>
-                </form>
-                <form action="/readingList" method="POST">
-                    <input type="hidden" name="del" id="del" value="del">
-                    <input type="hidden" name="contentID" id="contentID" value="{{row['id']}}">
-                    <button action="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% else %}
-        <div>You haven't saved anything yet!</div>
-    {% endif %}
-</div>
 
+<div class="border_left border_right border_top border_bottom bgtext font-text font-medium" style="text-align:center !important;color:white;min-height: 80%; border-radius: 3px; text-align: left;">
+    <div class="bottomBorder font-regular font-large" style="color:white; padding:7px">Reading List</div>
+    <div style="padding: 20px">
+    {% if data %}
+        <table style="width:100%; border-collapse: collapse;">
+            <tr class="font-text font-medium-small">
+                <th class="tableBorder leftBorder rightBorder topBorder" style="width:65%">Title</th>
+                <th class="tableBorder rightBorder topBorder">Category</th>
+                <th class="tableBorder topBorder rightBorder">Action</th>
+            </tr>
+            {% for row in data %}
+            <tr class="font-thumbTitle font-small">
+                <td class="tableBorder rightBorder leftBorder">{{row['name']}}</td>
+                <td class="tableBorder rightBorder">{{row['category']}}</td>
+                <td class="tableBorder rightBorder" style="width:17%;">
+                    <div style="display:inline-block">
+                        <form action="/blogpage" method="POST" style="display:inline">
+                            <input type="hidden" name="id" id="id" value="{{row['id']}}">
+                            <button action="submit" class="viewButton">Read</button>
+                        </form>
+                        <form action="/readingList" method="POST" style="display:inline">
+                            <input type="hidden" name="del" id="del" value="del">
+                            <input type="hidden" name="contentID" id="contentID" value="{{row['id']}}">
+                            <button action="submit" class="deleteButton">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr class="font-thumbTitle font-small">
+                <td class="tableBorder rightBorder leftBorder">{{row['name']}}</td>
+                <td class="tableBorder rightBorder">{{row['category']}}</td>
+                <td class="tableBorder rightBorder" style="width:17%;">
+                    <div style="display:inline-block">
+                        <form action="/blogpage" method="POST" style="display:inline">
+                            <input type="hidden" name="id" id="id" value="{{row['id']}}">
+                            <button action="submit" class="viewButton">Read</button>
+                        </form>
+                        <form action="/readingList" method="POST" style="display:inline">
+                            <input type="hidden" name="del" id="del" value="del">
+                            <input type="hidden" name="contentID" id="contentID" value="{{row['id']}}">
+                            <button action="submit" class="deleteButton">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr class="font-thumbTitle font-small">
+                <td class="tableBorder rightBorder leftBorder">{{row['name']}}</td>
+                <td class="tableBorder rightBorder">{{row['category']}}</td>
+                <td class="tableBorder rightBorder" style="width:17%;">
+                    <div style="display:inline-block">
+                        <form action="/blogpage" method="POST" style="display:inline">
+                            <input type="hidden" name="id" id="id" value="{{row['id']}}">
+                            <button action="submit" class="viewButton">Read</button>
+                        </form>
+                        <form action="/readingList" method="POST" style="display:inline">
+                            <input type="hidden" name="del" id="del" value="del">
+                            <input type="hidden" name="contentID" id="contentID" value="{{row['id']}}">
+                            <button action="submit" class="deleteButton">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>            
+            {% endfor %}
+        </table>
+        {% else %}
+            <div>You haven't saved anything yet!</div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

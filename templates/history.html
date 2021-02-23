@@ -15,18 +15,32 @@
                 </div>
                 {{row['title']}}
                 {% if session["user_id"] == row["userID"] %}
+                <form action="/blogpage" method="POST" style="padding-bottom: 5px;">
+                    <input name="id" id="id" type="hidden" value="{{row['id']}}">
+                    <button class="viewButton" action="submit">View Page</button>
+                </form>
                 <form action="/deleteComment" method="POST">
                     <input name="commentID" id="commentID" type="hidden" value="{{row['id']}}">
                     <input name="contentID" id="contentID" type="hidden" value="{{row['contentID']}}">
-                    <button action="submit">Delete Comment</button>
+                    <button action="submit" class="deleteButton">Delete Comment</button>
                 </form>
                 {% endif %}
             </div>
             <div class="flex-5 border_left" style="padding-left: 15px; text-align: left;">
-                {{row['comment']}}
+                <div style="padding:5px; display:inline-block; width:100%" class="font-text font-medium-small bottomBorder">
+                    {{row['name']}} 
+                    <div class="font-small" style="display:inline; position:absolute; right:15px; top:20px">
+                        {{row['commentDate']}}
+                    </div>
+                </div>
+                <div style="padding:15px" >{{row['comment']}}</div>
+              
             </div>
         </div>
     </div>
     {% endfor %}
+    {% if not data %}
+    <div class="font-text font-medium-small" style="color:white">You haven't posted any comments yet.</div>
+    {% endif %}
 </div>
 {% endblock %}

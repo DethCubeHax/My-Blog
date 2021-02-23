@@ -11,6 +11,26 @@
   src: url("Fonts/Montserrat-Regular.ttf")
 }
 
+.table {
+  border-collapse: collapse;
+}
+
+.rightBorder{
+  border-right: 1px solid #595959;
+}
+.leftBorder{
+  border-left: 1px solid #595959;
+}
+.topBorder{
+  border-top: 1px solid #595959;
+}
+.bottomBorder{
+  border-bottom: 1px solid #595959;
+}
+.tableBorder{
+  border-bottom:1px solid #595959;
+}
+
 .grid-container{
   display:grid;
   justify-items: start;
@@ -235,11 +255,12 @@
 }
 
 .bgtext{
-  background-color: rgba(0,0,0, 0.7);
+  background-color: rgba(10,10,10, 0.8);
   background-size:cover;
   background-repeat:   no-repeat;
   background-position: center center; 
   box-shadow: 0 4px 8px 2px rgba(0.2, 0.2, 0.2, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.19);
+  backdrop-filter: blur(3px);
 }
 
 /*
@@ -311,9 +332,107 @@ Dropdown thanks to w3schools!
   padding-top:10px; 
   padding-bottom: 10px; 
   color:white  !important;
+  background-color: rgba(1,1,1,0.3);
   display:flex;
+  border-radius: 3px;
+  backdrop-filter: blur(5px) !important
 }
 
-.ShrNoob{
-  border-bottom: 1px solid white;
+.searchButton{
+  border-style:solid;
+  border-width: 2px;
+  border-color: lightgray;
+  color:white;
+  background-color: black;
+  border-radius: 5px;
 }
+.searchButton:hover{
+  background-color: white;
+  color:black;
+  transition: 0.3s;
+  box-shadow: 0px 0px 2px 5px rgba(255,255,255,0.2);
+}
+
+.readLaterButton{
+  border-style:solid;
+  border-width: 2px;
+  border-color: #FFF9C4;
+  color:white;
+  background-color: black;
+  border-radius: 5px;
+}
+.readLaterButton:hover{
+  background: #FFF9C4;
+  color: black;
+  transition: 0.3s;
+  box-shadow: 0px 0px 2px 3px rgba(255,255,255,0.2)
+}
+
+.deleteButton{
+  border-style:solid;
+  border-width: 2px;
+  border-color: #4d0404;
+  color:white;
+  background:none;
+  border-radius: 5px;
+}
+.deleteButton:hover{
+  background: #4d0404;
+  color: white;
+  transition: 0.3s;
+  box-shadow: 0px 0px 2px 3px rgba(253, 0, 0, 0.4)
+}
+
+.viewButton{
+  border-style:solid;
+  border-width: 2px;
+  border-color: #0a3001;
+  color:white;
+  background:none;
+  border-radius: 5px;
+}
+.viewButton:hover{
+  background: #0a3001;
+  color: white;
+  transition: 0.3s;
+  box-shadow: 0px 0px 2px 3px rgba(6, 150, 1, 0.651)
+}
+
+.searchBar{
+  background:none;
+  border:solid;
+  border-color: #797979;
+  border-width:2px;
+  border-radius: 5px;
+  color: white;
+}
+
+.searchBar:hover{
+  border-color:lightgray;
+}
+
+.searchBar::selection{
+  border-color: lightgray;
+  border-width: 2px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 25px;
+}
+
+th{
+  text-align:left;
+  padding:10px;
+  background-color:rgba(14, 14, 14, 0.4);
+  backdrop-filter: blur(5px); 
+}
+
+td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {background-color: rgb(71, 71, 71);}
+tr:nth-child(odd) {background-color: rgb(48, 48, 48)}

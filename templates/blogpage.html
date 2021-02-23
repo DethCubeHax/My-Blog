@@ -34,19 +34,19 @@
                 <div style="text-align: right; transform: translateY(-15px);">
                     <form action="/readingList" method="POST">
                         <input type="hidden" id="id" name="id" value="{{data['id']}}">
-                        <button type="submit">Read Later</button>
+                        <button type="submit" class="readLaterButton">Read Later</button>
                     </form>
                 </div>
                 {% block content %}{% endblock %}
             </div>
-            <div style="padding-bottom: 3px; color:white" class="font-text border_bottom border_top font-small-medium">
+            <div style="padding-bottom: 10px; padding-top:15px; padding-left:15px; color:white" class="font-text border_bottom border_top font-small-medium">
                 COMMENTS
                 
                 {% if session.user_id %}
-                <form action="/comments" name="Comments" method="POST" onsubmit="return empty()">
+                <form action="/comments" style="padding-bottom: 15px; padding-top:10px" name="Comments" method="POST" onsubmit="return empty()">
                     <input type="hidden" id="contentID" name="contentID" value="{{data['id']}}">
-                    <input style="width:90%" maxlength="250" type="text" id="comment" name="comment">
-                    <button type="submit">Post Comment</button>
+                    <input style="width:80%" class="searchBar" maxlength="250" type="text" id="comment" name="comment" placeholder="Share your thoughts here!">
+                    <button type="submit" class="readLaterButton">Post Comment</button>
                 </form>
                 {% else %}
                 <div style="text-align: right;">
@@ -58,16 +58,18 @@
             {% for row in commentData %}
             <div style="padding: 15px">
                 <div class="font-text commentBox" style="border: 1px solid #595959">
-                    <div class="flex-1" style="text-align: center;">                
-                        <div class="font-text" style="padding-left: 15px; padding-right:15px; padding-top:10px; padding-bottom: 10px;" class="flex-container">
+                    <div class="flex-1" style="text-align: center; padding-right:15px">                
+                        <div class="font-text bottomBorder" style="padding-left: 15px; padding-right:15px; padding-top:10px; padding-bottom: 10px;" class="flex-container">
                             <img src="static/Images/user.png" style="width:100px; height:100px">
                         </div>
-                        {{row['name']}}
+                        <div style="padding-top: 15px;">{{row['name']}}</div>
+                        <div style="padding-bottom: 15px">{{row['commentDate']}}</div>
+                        
                         {% if session["user_id"] == row["userID"] %}
                         <form action="/deleteComment" method="POST">
                             <input name="commentID" id="commentID" type="hidden" value="{{row['id']}}">
                             <input name="contentID" id="contentID" type="hidden" value="{{row['contentID']}}">
-                            <button action="submit">Delete Comment</button>
+                            <button class="deleteButton" action="submit">Delete Comment</button>
                         </form>
                         {% endif %}
                     </div>
@@ -78,6 +80,7 @@
             </div>
             {% endfor %}
         </div>
+        <div style="padding-bottom: 2 5px;"></div>
     </div>
 </div>
 {% endblock %}

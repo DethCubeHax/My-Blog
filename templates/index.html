@@ -8,8 +8,15 @@
 <div style="padding-top: 95px"></div>
 <div class="border_left border_right border_top border_bottom bgtext" style="min-height: 80%; border-radius: 3px; text-align: left;">
     <div style="padding-top: 5px; padding-left:5px; padding-right:5px; padding-bottom:5px; text-align:right; z-index: 10;">
-        <input type="text" placeholder="Looking for something?" class="SearchBar">
-        <button type="submit" name="Search" style="height: 25px; ">Search</button>
+        <form action="/" method="POST">
+            <div style="display: inline-block; width:100%; text-align: left;">
+                <div class="font-title font-small-medium" style="color: white !important; text-align: left  !important; display:inline; width: 40%; padding-left:10px">COLLECTION</div>
+                <div style=" display: inline;position:absolute; right:15px">
+                    <input name="search" class="searchBar" style="display:inline;" id="search" type="text" placeholder="Looking for something?" class="SearchBar">
+                    <button type="submit" name="Search" style="display:inline" class="searchButton" style="height: 25px; ">Search</button>
+                </div>
+            </div>
+        </form>
         <div style="padding-top:5px" class="border_bottom"></div>
 
     </div>
@@ -32,6 +39,9 @@
                     </button>
             </form>
         {% endfor %}
+        {% if not data %}
+            <div class="font-text font-small-medium" style="color:white; padding-left:40%;">No matches found, please refine your search!</div>
+        {% endif %}
         </div>
     </div>
 </div>

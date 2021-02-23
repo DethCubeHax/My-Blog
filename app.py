@@ -22,10 +22,17 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 @app.route("/", methods=["POST", "GET"])
 def index():
-    update()
-    tmp = db.execute("SELECT * FROM content")
-    print(tmp)
-    return render_template("index.html", data=tmp)
+    if request.method == "GET":
+        update()
+        tmp = db.execute("SELECT * FROM content")
+        print(tmp)
+        return render_template("index.html", data=tmp)
+    else:
+        text = request.form.get("search")
+        tmp = db.execute("SELECT * FROM content WHERE name LIKE ?", "%" + text + "%")
+        if not tmp:
+            tmp = db.execute("SELECT * FROM content WHERE category LIKE ?", "%" + text + "%")
+        return render_template("index.html", data=tmp)
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
@@ -44,6 +51,30 @@ def register():
             return render_template("reg-login.html", reg=2, passhash = passhash)
     else:
         return render_template("reg-login.html", reg=1)
+
+@app.route("/recoverAccount", methods=["POST", "GET"])
+def recover():
+    if request.method == "GET":
+        return render_template("reg-login.html", reg="recover")
+    else:
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        passHash = request.form.get("hash")
+
+        tmp = db.execute("SELECT * FROM users WHERE username=:username AND email=:email", username=name, email=email)
+
+        if not tmp:
+            return render_template("reg-login.html", reg="recover", msg="That user does not exist.")
+        if passHash != tmp[0]["password"]:
+            return render_template("reg-login.html", reg="recover", msg="The hash is incorrect.")
+        
+        newHash = generate_password_hash(password)
+
+        db.execute("UPDATE users SET password=:password WHERE email=:email", password = newHash, email=email)
+
+        return render_template("reg-login.html", msg="Password changed successfully!", reg=0)
+
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -127,10 +158,11 @@ def comments():
     comment = request.form.get("comment")
     contentID = request.form.get("contentID")
     timeNow = time.time()
+    today = date.today()
 
     username = db.execute("SELECT * FROM users WHERE id=:id", id = session["user_id"])
 
-    db.execute("INSERT INTO comments (contentID, userID, comment, time, name) VALUES (:contentID, :userID, :comment, :time, :name)", contentID=contentID, userID=session["user_id"], comment=comment, time=timeNow, name=username[0]['username'])
+    db.execute("INSERT INTO comments (contentID, userID, comment, time, name, commentDate) VALUES (:contentID, :userID, :comment, :time, :name, :commentDate)", contentID=contentID, userID=session["user_id"], comment=comment, time=timeNow, name=username[0]['username'], commentDate=today.strftime("%B %d, %Y"))
 
     rows = db.execute("SELECT * FROM content WHERE id=:id", id = contentID)
     commentData = db.execute("SELECT * FROM comments")
