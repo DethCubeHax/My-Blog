@@ -49,6 +49,8 @@ def register():
         if not rows:
             db.execute("INSERT INTO users (username, password, email) VALUES (:username, :password, :email)", username=username, password=passhash, email=email)
             return render_template("reg-login.html", reg=2, passhash = passhash)
+        else:
+            return render_template("reg-login.html", reg=1, msg='That user already exists. <a href="/login">Login</a> instead?')
     else:
         return render_template("reg-login.html", reg=1)
 

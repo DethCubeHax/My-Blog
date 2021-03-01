@@ -68,6 +68,7 @@
 
 .form-group{
     margin:auto;
+    width: 40%
 }
 
 .Centrify{
@@ -100,6 +101,10 @@
   
   .font-small{
     font-size: 16px;
+  }
+  
+  .font-extra-small{
+    font-size: 11pt;
   }
 
 .font-regular{
@@ -436,3 +441,42 @@ td {
 
 tr:nth-child(even) {background-color: rgb(71, 71, 71);}
 tr:nth-child(odd) {background-color: rgb(48, 48, 48)}
+
+.heading{
+  font-family: text;
+  font-size: 25pt;
+  text-align: left;
+  border-bottom: 1px solid #595959;
+}
+.heading2{
+  font-family: text;
+  font-size:17pt;
+  text-align: left;
+  border-bottom: 1px solid #292929;
+
+}
+
+.headingPadding{
+  padding: 15px
+}
+
+.paragraph{
+  text-align: justify;
+  text-justify: inter-word;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px
+}
+
+
+.codeBlock{
+  border-radius: 10px;
+  border:1px solid #595959;
+  background-color: rgb(150, 150, 150);
+  backdrop-filter: blur(5px);
+  width: min-content;
+  padding-left: 10px;
+  padding-right:10px;
+  align-self:center;
+  transform: translateX(20px)
+}

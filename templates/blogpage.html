@@ -1,4 +1,4 @@
-{% extends "layouts/mainLayout.html" %}
+{% extends "layouts/mainBlogLayout.html" %}
 
 {% block title %}
 
@@ -17,6 +17,21 @@
         };
         return true
     }
+
+    var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+              coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                  content.style.display = "none";
+                } else {
+                  content.style.display = "block";
+                }
+              });
+            }
 </script>
 
 <div style="padding-top: 95px">
@@ -24,19 +39,19 @@
         <div style="padding-left:5px; padding-right:5px">
             <div style="padding-top:10px; color:white" class="border_bottom font-text font-medium">
                 {% block pageTitle %}{% endblock %}
-                <div style="text-align: right; transform: translateY(-15px)" class="font-small-medium">
-                
-                </div>
-                
             </div>
-            <div style="padding-bottom: 20px; color:white" class="font-text">
+            <div style="color:white" class="font-text">
                 Published on {% block date %}{% endblock %}
+                {% if session.user_id %}
                 <div style="text-align: right; transform: translateY(-15px);">
                     <form action="/readingList" method="POST">
                         <input type="hidden" id="id" name="id" value="{{data['id']}}">
                         <button type="submit" class="readLaterButton">Read Later</button>
                     </form>
                 </div>
+                {% endif %}
+            </div>
+            <div style="color:white" class="font-thumbTitle font-extra-small">
                 {% block content %}{% endblock %}
             </div>
             <div style="padding-bottom: 10px; padding-top:15px; padding-left:15px; color:white" class="font-text border_bottom border_top font-small-medium">

@@ -112,14 +112,14 @@
                 <input class="form-control" name="confirm" id="confirm" placeholder="Confirm Password" type="password">
             </div>
             <div style="padding-top:20px"></div>
-            <button type="submit">Register</button>
+            <button class="viewButton" type="submit" style="font-size: 13pt;">Register</button>
             <div style="padding-top:10px"></div>
             <p style="color:white">
                 Already have an account? <a href="/login">Login</a> instead.
             </p>
             {% if msg %}
             <p style="color:white">
-                {{msg}}
+                That user already exists, try logging in instead?
             </p>
 
             {% endif %}
@@ -194,7 +194,7 @@
         </div>
 
         <div style="padding-top:20px"></div>
-        <button type="submit">Recover Account</button>
+        <button type="submit" class="readLaterButton">Recover Account</button>
         <div style="padding:15px">{{msg}}</div>
     </form>
 </div>
@@ -218,12 +218,12 @@
             <input class="form-control" name="password" id="password" placeholder="Password" type="password">
         </div>
         <div style="padding-top:20px"></div>
-        <button type="submit">Login</button>
+        <button class="viewButton" type="submit" style="font-size: 13pt;">Login</button>
         <div style="padding-top:10px"></div>
         <p style="color:white">
             Don't have an account? <a href="/register">Register</a> instead.
         </p>
-        <p style="color:white">
+        <p style="color:white" style="font-size: 9pt;">
             Forgot your password? <a href="/recoverAccount">Recover</a> it here!
         </p>
         {% if msg %}

@@ -34,41 +34,7 @@
                         </form>
                     </div>
                 </td>
-            </tr>
-            <tr class="font-thumbTitle font-small">
-                <td class="tableBorder rightBorder leftBorder">{{row['name']}}</td>
-                <td class="tableBorder rightBorder">{{row['category']}}</td>
-                <td class="tableBorder rightBorder" style="width:17%;">
-                    <div style="display:inline-block">
-                        <form action="/blogpage" method="POST" style="display:inline">
-                            <input type="hidden" name="id" id="id" value="{{row['id']}}">
-                            <button action="submit" class="viewButton">Read</button>
-                        </form>
-                        <form action="/readingList" method="POST" style="display:inline">
-                            <input type="hidden" name="del" id="del" value="del">
-                            <input type="hidden" name="contentID" id="contentID" value="{{row['id']}}">
-                            <button action="submit" class="deleteButton">Delete</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            <tr class="font-thumbTitle font-small">
-                <td class="tableBorder rightBorder leftBorder">{{row['name']}}</td>
-                <td class="tableBorder rightBorder">{{row['category']}}</td>
-                <td class="tableBorder rightBorder" style="width:17%;">
-                    <div style="display:inline-block">
-                        <form action="/blogpage" method="POST" style="display:inline">
-                            <input type="hidden" name="id" id="id" value="{{row['id']}}">
-                            <button action="submit" class="viewButton">Read</button>
-                        </form>
-                        <form action="/readingList" method="POST" style="display:inline">
-                            <input type="hidden" name="del" id="del" value="del">
-                            <input type="hidden" name="contentID" id="contentID" value="{{row['id']}}">
-                            <button action="submit" class="deleteButton">Delete</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>            
+            </tr>           
             {% endfor %}
         </table>
         {% else %}
