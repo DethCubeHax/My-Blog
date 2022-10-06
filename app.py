@@ -164,6 +164,9 @@ def comments():
 
     username = db.execute("SELECT * FROM users WHERE id=:id", id = session["user_id"])
 
+    if len(comment) > 200:
+        return render_template(path[7:] + "content.html", data = rows[0], commentData=commentData)
+
     db.execute("INSERT INTO comments (contentID, userID, comment, time, name, commentDate) VALUES (:contentID, :userID, :comment, :time, :name, :commentDate)", contentID=contentID, userID=session["user_id"], comment=str(comment), time=timeNow, name=username[0]['username'], commentDate=today.strftime("%B %d, %Y"))
 
     rows = db.execute("SELECT * FROM content WHERE id=:id", id = contentID)
